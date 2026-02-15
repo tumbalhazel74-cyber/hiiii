@@ -25,14 +25,14 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             z-index: 10;
             width: 85%;
-            max-width: 400px;
+            max-width: 380px;
             box-sizing: border-box;
-            max-height: 90vh; /* Para dili molapas sa screen */
-            overflow-y: auto; /* Para ma-scroll kung kinahanglan */
+            max-height: 95vh;
+            overflow-y: auto;
         }
 
         h1 { color: #d32f2f; font-size: 1.3rem; margin-bottom: 10px; }
-        p { color: #555; line-height: 1.5; font-size: 0.9rem; margin: 0; }
+        p { color: #555; line-height: 1.5; font-size: 0.92rem; margin: 0; }
 
         /* Style para sa Show More/Less */
         #moreText { display: none; }
@@ -40,13 +40,14 @@
             color: #ff4081;
             cursor: pointer;
             font-weight: bold;
-            display: inline-block;
-            margin-top: 5px;
+            display: block;
+            margin-top: 10px;
             text-decoration: underline;
+            font-size: 0.85rem;
         }
 
         .btn-container {
-            margin-top: 20px;
+            margin-top: 25px;
             display: flex;
             justify-content: center;
             gap: 15px;
@@ -55,17 +56,24 @@
         }
 
         button {
-            padding: 10px 20px;
+            padding: 12px 22px;
             font-size: 1rem;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
             transition: 0.2s ease;
             touch-action: none;
         }
 
-        #yesBtn { background-color: #ff4081; color: white; z-index: 2; }
-        #noBtn { background-color: #9e9e9e; color: white; position: absolute; }
+        #yesBtn { background-color: #ff4081; color: white; z-index: 5; }
+        
+        /* Mao ni ang button nga magdagan-dagan permi */
+        #noBtn { 
+            background-color: #9e9e9e; 
+            color: white; 
+            position: absolute; 
+            z-index: 4;
+        }
 
         .heart {
             position: absolute;
@@ -89,8 +97,9 @@
             <h1>hi love! ❤️</h1>
             <p id="message">
                 i just wanted to let you know that you’re special to me. sorry if sometimes i sound mean sa imoha or if i act like i don’t care...
+                
                 <span id="moreText">
-                    it’s not because you don’t matter. the truth is, you matter more than you think kay you think you're not important sa ako right? but that's a big no.
+                    <br>it’s not because you don’t matter. the truth is, you matter more than you think kay you think you're not important sa ako right? but that's a big no.
                     <br><br>
                     i just don’t want to expect too much because i'm honestly scared. mahadlok ko ma-hurt and mahadlok pud ko makahurt nimo. when my words hurt you, it hurts me too. that’s why sometimes i hold myself back and try not to depend on you too much, not because i don’t trust you, but because i'm protecting my heart. sorry if i'm like this,
                     <br><br>
@@ -100,6 +109,7 @@
                     <br><br>
                     <b>dawat ra nimo? diko katug og overthink maong dawata gyud hin.</b>
                 </span>
+
                 <span id="toggleBtn" onclick="toggleMessage()">Read more...</span>
             </p>
             
@@ -111,7 +121,7 @@
     </div>
 
     <script>
-        // Toggle Show More/Less
+        // Toggle Show More/Less Function
         function toggleMessage() {
             const moreText = document.getElementById("moreText");
             const btnText = document.getElementById("toggleBtn");
@@ -139,29 +149,37 @@
 
         const noBtn = document.getElementById('noBtn');
 
+        // Mao ni ang logic para molayas ang No button
         function moveButton() {
             const maxX = window.innerWidth - noBtn.offsetWidth;
             const maxY = window.innerHeight - noBtn.offsetHeight;
+            
+            // Random position sa tibuok screen
             const randomX = Math.floor(Math.random() * maxX);
             const randomY = Math.floor(Math.random() * maxY);
 
-            noBtn.style.position = 'fixed';
+            noBtn.style.position = 'fixed'; 
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
         }
 
+        // Mouse hover (Desktop)
         noBtn.addEventListener('mouseover', moveButton);
+
+        // Touch (Mobile)
         noBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
+            e.preventDefault(); 
             moveButton();
         });
 
+        // Yes Button click
         document.getElementById('yesBtn').addEventListener('click', () => {
             document.getElementById('main-content').innerHTML = `
-                <h1>yeeeey! sorryyy, labyu love! 💖</h1>
+                <h1 style="color: #ff4081;">yeeeey! sorryyy, labyu love! 💖</h1>
                 <p>kabalo man ko dili nimo ma-click ang no. dapat lang kay i don't take no for an answer when it comes to you hehe.</p>
-                <div style="font-size: 50px; margin-top:20px;">😘✨</div>
+                <div style="font-size: 60px; margin-top: 20px;">😘✨</div>
             `;
+            // Hunongon ang hearts generator para dili bug-at pero pwede ra pud pasagdan
         });
     </script>
 </body>
