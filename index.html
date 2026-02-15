@@ -38,7 +38,7 @@
             cursor: pointer;
             font-weight: bold;
             display: inline-block;
-            margin-top: 5px;
+            margin-top: 10px;
             text-decoration: underline;
         }
 
@@ -48,8 +48,8 @@
             justify-content: center;
             align-items: center;
             gap: 20px;
-            min-height: 50px;
-            position: relative;
+            min-height: 60px;
+            position: relative; /* Kinahanglan ni para sa sugod */
         }
 
         button {
@@ -62,12 +62,12 @@
             touch-action: none;
         }
 
-        #yesBtn { background-color: #ff4081; color: white; z-index: 10; }
+        #yesBtn { background-color: #ff4081; color: white; }
         
         #noBtn { 
             background-color: #9e9e9e; 
             color: white; 
-            z-index: 11;
+            /* Wala nako gi-position:fixed diri para makita dayon siya tapad sa Yes */
         }
 
         .heart {
@@ -134,15 +134,21 @@
         const noBtn = document.getElementById('noBtn');
 
         function moveButton() {
-            noBtn.style.position = 'fixed';
+            // Inig hikap na niya, diha pa siya mahimong 'fixed' para molayat bisan asa
+            noBtn.style.position = 'fixed'; 
+            
+            // Limit sa screen para dili mawala sa sight
             const maxX = window.innerWidth - noBtn.offsetWidth - 20;
             const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
             const randomX = Math.max(10, Math.floor(Math.random() * maxX));
             const randomY = Math.max(10, Math.floor(Math.random() * maxY));
+
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
         }
 
+        // Magdagan-dagan inig hover o touch
         noBtn.addEventListener('mouseover', moveButton);
         noBtn.addEventListener('touchstart', (e) => {
             e.preventDefault(); 
@@ -151,7 +157,7 @@
 
         document.getElementById('yesBtn').addEventListener('click', () => {
             document.getElementById('main-content').innerHTML = `
-                <h1>yeeeey! sorryyy, labyu love! 💖</h1>
+                <h1 style="color: #ff4081;">yeeeey! sorryyy, labyu love! 💖</h1>
                 <p>kabalo man ko dili nimo ma-click ang no. dapat lang kay i don't take no for an answer when it comes to you hehe.</p>
                 <div style="font-size: 50px; margin-top:20px;">😘✨</div>
             `;
