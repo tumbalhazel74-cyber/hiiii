@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Para Sa Imo</title>
     <style>
         body {
@@ -14,35 +14,33 @@
             min-height: 100vh;
             background-color: #ffebee;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden; /* Ang background dili ma-scroll */
+            overflow: hidden; /* Ang background dili mo-scroll */
             text-align: center;
         }
 
         .container {
             background: rgba(255, 255, 255, 0.95);
-            padding: 20px;
+            padding: 25px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             z-index: 10;
-            width: 85%;
+            width: 90%;
             max-width: 400px;
             box-sizing: border-box;
+            max-height: 85vh; /* Limit sa gitas-on sa box */
             display: flex;
             flex-direction: column;
-            max-height: 90vh; /* Para dili molapas sa screen sa phone */
         }
 
-        h1 { color: #d32f2f; font-size: 1.3rem; margin-bottom: 10px; flex-shrink: 0; }
-
-        /* Kini ang mag-scroll sa message area ra */
-        .message-content {
+        /* Kini ang importante: scrollable ang sulod sa box */
+        #main-content {
             overflow-y: auto;
-            padding-right: 5px;
-            margin-bottom: 10px;
-            text-align: center;
+            -webkit-overflow-scrolling: touch; /* Para smooth scroll sa iPhone */
+            padding-bottom: 20px;
         }
 
-        p { color: #555; line-height: 1.5; font-size: 0.95rem; margin: 0; }
+        h1 { color: #d32f2f; font-size: 1.4rem; margin-bottom: 15px; position: sticky; top: 0; background: white; padding: 5px 0; }
+        p { color: #555; line-height: 1.6; font-size: 1rem; margin: 0; }
 
         #moreText { display: none; }
         #toggleBtn {
@@ -50,19 +48,20 @@
             cursor: pointer;
             font-weight: bold;
             display: inline-block;
-            margin-top: 10px;
+            margin-top: 15px;
             text-decoration: underline;
+            font-size: 0.9rem;
         }
 
         .btn-container {
-            margin-top: 10px;
+            margin-top: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 20px;
             min-height: 60px;
             position: relative;
-            flex-shrink: 0; /* Para dili mapislat ang buttons */
+            flex-shrink: 0; /* Dili mapislat ang buttons */
         }
 
         button {
@@ -92,9 +91,9 @@
             100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Custom scrollbar para dili hugaw tan-awon */
-        .message-content::-webkit-scrollbar { width: 4px; }
-        .message-content::-webkit-scrollbar-thumb { background: #ffc107; border-radius: 10px; }
+        /* Simple scrollbar para dili babag */
+        #main-content::-webkit-scrollbar { width: 5px; }
+        #main-content::-webkit-scrollbar-thumb { background: #ffc107; border-radius: 5px; }
     </style>
 </head>
 <body>
@@ -102,18 +101,15 @@
     <div class="container">
         <div id="main-content">
             <h1>hi love! ❤️</h1>
-            
-            <div class="message-content">
-                <p>
-                    i just wanted to let you know that you’re special to me. sorry if sometimes i sound mean sa imoha or if i act like i don’t care, it’s not because you don’t matter. the truth is, you matter more than you think kay you think you're not important sa ako right? but that's a big no
-                    <span id="moreText">
-                        <br><br>i just don’t want to expect too much because i'm honestly scared. mahadlok ko ma-hurt and mahadlok pud ko makahurt nimo. when my words hurt you, it hurts me too. that’s why sometimes i hold myself back and try not to depend on you too much, not because i don’t trust you, but because i'm protecting my heart. sorry if i'm like this,
-                        <br><br>please bear with me, okay? i may not always show it perfectly, but what i feel is real. i just need a little patience while i learn to be less afraid. and despite all these fears, one thing is true i care about you deeply, maybe more than i'm ready to admit.
-                        <br><br><b>dawat ra nimo? diko katug og overthink maong dawata gyud hin.</b>
-                    </span>
-                </p>
-                <span id="toggleBtn" onclick="toggleMessage()">Read more...</span>
-            </div>
+            <p>
+                i just wanted to let you know that you’re special to me. sorry if sometimes i sound mean sa imoha or if i act like i don’t care, it’s not because you don’t matter. the truth is, you matter more than you think kay you think you're not important sa ako right? but that's a big no
+                <span id="moreText">
+                    <br><br>i just don’t want to expect too much because i'm honestly scared. mahadlok ko ma-hurt and mahadlok pud ko makahurt nimo. when my words hurt you, it hurts me too. that’s why sometimes i hold myself back and try not to depend on you too much, not because i don’t trust you, but because i'm protecting my heart. sorry if i'm like this,
+                    <br><br>please bear with me, okay? i may not always show it perfectly, but what i feel is real. i just need a little patience while i learn to be less afraid. and despite all these fears, one thing is true i care about you deeply, maybe more than i'm ready to admit.
+                    <br><br><b>dawat ra nimo? diko katug og overthink maong dawata gyud hin.</b>
+                </span>
+            </p>
+            <span id="toggleBtn" onclick="toggleMessage()">Read more...</span>
             
             <div class="btn-container">
                 <button id="yesBtn">yes! 😍</button>
@@ -126,12 +122,15 @@
         function toggleMessage() {
             const moreText = document.getElementById("moreText");
             const btnText = document.getElementById("toggleBtn");
+            const content = document.getElementById("main-content");
+
             if (moreText.style.display === "none" || moreText.style.display === "") {
                 moreText.style.display = "inline";
                 btnText.innerHTML = "Read less";
             } else {
                 moreText.style.display = "none";
                 btnText.innerHTML = "Read more...";
+                content.scrollTop = 0; // Balik sa taas kung i-close
             }
         }
 
@@ -165,10 +164,10 @@
         });
 
         document.getElementById('yesBtn').addEventListener('click', () => {
-            document.getElementById('main-content').innerHTML = `
+            document.querySelector('.container').innerHTML = `
                 <h1 style="color: #ff4081;">yeeeey! sorryyy, labyu love! 💖</h1>
                 <p>kabalo man ko dili nimo ma-click ang no. dapat lang kay i don't take no for an answer when it comes to you hehe.</p>
-                <div style="font-size: 50px; margin-top:20px;">😘✨</div>
+                <div style="font-size: 60px; margin-top:20px;">😘✨</div>
             `;
         });
     </script>
