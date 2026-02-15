@@ -14,61 +14,68 @@
             min-height: 100vh;
             background-color: #ffebee;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden; /* Ang background dili mo-scroll */
+            overflow: hidden;
             text-align: center;
         }
 
         .container {
             background: rgba(255, 255, 255, 0.95);
-            padding: 25px;
+            padding: 15px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             z-index: 10;
-            width: 90%;
-            max-width: 400px;
+            width: 85%;
+            max-width: 320px; /* Mas fit sa gagmay nga selpon */
             box-sizing: border-box;
-            max-height: 85vh; /* Limit sa gitas-on sa box */
+            max-height: 85vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* Kini ang importante: scrollable ang sulod sa box */
         #main-content {
             overflow-y: auto;
-            -webkit-overflow-scrolling: touch; /* Para smooth scroll sa iPhone */
-            padding-bottom: 20px;
+            -webkit-overflow-scrolling: touch;
         }
 
-        h1 { color: #d32f2f; font-size: 1.4rem; margin-bottom: 15px; position: sticky; top: 0; background: white; padding: 5px 0; }
-        p { color: #555; line-height: 1.6; font-size: 1rem; margin: 0; }
+        h1 { color: #d32f2f; font-size: 1rem; margin: 0 0 10px 0; }
+        
+        /* Gipagamyan ang font para sa selpon */
+        p { 
+            color: #555; 
+            line-height: 1.3; 
+            font-size: 0.8rem; 
+            margin: 0; 
+            text-align: justify; /* Para limpyo tan-awon ang text */
+        }
 
         #moreText { display: none; }
+        
         #toggleBtn {
             color: #ff4081;
             cursor: pointer;
             font-weight: bold;
             display: inline-block;
-            margin-top: 15px;
+            margin: 5px 0;
             text-decoration: underline;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
         }
 
         .btn-container {
-            margin-top: 20px;
+            margin-top: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
-            min-height: 60px;
+            gap: 15px;
+            min-height: 45px;
             position: relative;
-            flex-shrink: 0; /* Dili mapislat ang buttons */
+            flex-shrink: 0;
         }
 
         button {
-            padding: 12px 25px;
-            font-size: 1rem;
+            padding: 8px 18px;
+            font-size: 0.85rem;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
             transition: 0.2s ease;
             touch-action: none;
@@ -80,7 +87,7 @@
         .heart {
             position: absolute;
             color: #ff4081;
-            font-size: 20px;
+            font-size: 15px;
             animation: float 4s linear infinite;
             opacity: 0;
             pointer-events: none;
@@ -91,8 +98,7 @@
             100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Simple scrollbar para dili babag */
-        #main-content::-webkit-scrollbar { width: 5px; }
+        #main-content::-webkit-scrollbar { width: 3px; }
         #main-content::-webkit-scrollbar-thumb { background: #ffc107; border-radius: 5px; }
     </style>
 </head>
@@ -104,8 +110,8 @@
             <p>
                 i just wanted to let you know that you’re special to me. sorry if sometimes i sound mean sa imoha or if i act like i don’t care, it’s not because you don’t matter. the truth is, you matter more than you think kay you think you're not important sa ako right? but that's a big no
                 <span id="moreText">
-                    <br>i just don’t want to expect too much because i'm honestly scared. mahadlok ko ma-hurt and mahadlok pud ko makahurt nimo. when my words hurt you, it hurts me too. that’s why sometimes i hold myself back and try not to depend on you too much, not because i don’t trust you, but because i'm protecting my heart. sorry if i'm like this,
-                    <br>please bear with me, okay? i may not always show it perfectly, but what i feel is real. i just need a little patience while i learn to be less afraid. and despite all these fears, one thing is true i care about you deeply, maybe more than i'm ready to admit.
+                    i just don’t want to expect too much because i'm honestly scared. mahadlok ko ma-hurt and mahadlok pud ko makahurt nimo. when my words hurt you, it hurts me too. that’s why sometimes i hold myself back and try not to depend on you too much, not because i don’t trust you, but because i'm protecting my heart. sorry if i'm like this,
+                    please bear with me, okay? i may not always show it perfectly, but what i feel is real. i just need a little patience while i learn to be less afraid. and despite all these fears, one thing is true i care about you deeply, maybe more than i'm ready to admit.
                     <br><b>dawat ra nimo? diko katug og overthink maong dawata gyud hin.</b>
                 </span>
             </p>
@@ -130,7 +136,7 @@
             } else {
                 moreText.style.display = "none";
                 btnText.innerHTML = "Read more...";
-                content.scrollTop = 0; // Balik sa taas kung i-close
+                content.scrollTop = 0;
             }
         }
 
@@ -149,10 +155,10 @@
 
         function moveButton() {
             noBtn.style.position = 'fixed'; 
-            const maxX = window.innerWidth - noBtn.offsetWidth - 20;
-            const maxY = window.innerHeight - noBtn.offsetHeight - 20;
-            const randomX = Math.max(10, Math.floor(Math.random() * maxX));
-            const randomY = Math.max(10, Math.floor(Math.random() * maxY));
+            const maxX = window.innerWidth - noBtn.offsetWidth - 10;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 10;
+            const randomX = Math.max(5, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(5, Math.floor(Math.random() * maxY));
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
         }
@@ -165,9 +171,9 @@
 
         document.getElementById('yesBtn').addEventListener('click', () => {
             document.querySelector('.container').innerHTML = `
-                <h1 style="color: #ff4081;">yeeeey! sorryyy, labyu love! 💖</h1>
-                <p>kabalo man ko dili nimo ma-click ang no. dapat lang kay i don't take no for an answer when it comes to you hehe.</p>
-                <div style="font-size: 60px; margin-top:20px;">😘✨</div>
+                <h1 style="color: #ff4081;">yeeeey! labyu love! 💖</h1>
+                <p style="font-size: 0.8rem; text-align: center;">kabalo man ko dili nimo ma-click ang no. dapat lang kay i don't take no for an answer when it comes to you hehe.</p>
+                <div style="font-size: 40px; margin-top:10px;">😘✨</div>
             `;
         });
     </script>
